@@ -1,0 +1,29 @@
+[
+    {
+        "name":"Karthik ",
+        "note":"Karthik with dependent search",
+        "search":false,
+        "connection":
+            {
+                "first_name":"Karthik",
+                "last_name":"Yetukuri",
+                "email":"",
+                "company":"VMware",
+                "position":"Director, Security Intelligence and Response",
+                "connection":""
+            }
+    },
+    {
+        "name":"Karthik",
+        "note":"Karthik with independent search",
+        "search":true,
+        "connection":
+            {
+                "first_name":"Karthik",
+                "last_name":"Yetukuri",
+                "email":"",
+                "company":"VMware",
+                "position":"Director, Security Intelligence and Response",
+                "connection":""
+            }
+        }]
