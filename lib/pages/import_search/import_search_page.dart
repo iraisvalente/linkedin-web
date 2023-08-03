@@ -21,6 +21,7 @@ class ImportSearchPage extends StatefulWidget {
 class _ImportSearchPageState extends State<ImportSearchPage> {
   String fileName = "No file chosen";
   String path = "";
+  bool loading = true;
   List<List<dynamic>> data = [];
   List<SavedSearch> searches = [];
   List<List<dynamic>> rowsAsListOfValues = [];
@@ -70,17 +71,27 @@ class _ImportSearchPageState extends State<ImportSearchPage> {
   void initState() {
     super.initState();
     //readSearches();
+    loading = false;
   }
 
   @override
   Widget build(BuildContext context) {
+    if (loading == true) {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             NavBar(),
             Container(
-              margin: EdgeInsets.only(bottom: 35, top: 35),
+              margin:
+                  EdgeInsets.only(bottom: 35, top: 35, left: 100, right: 100),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

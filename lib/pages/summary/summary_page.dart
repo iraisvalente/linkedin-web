@@ -102,10 +102,10 @@ class _SummaryPageState extends State<SummaryPage> {
 
     return DataTable(columns: const [
       DataColumn(
-        label: Text('SOA Connection'),
+        label: Text('Positions', style: TextStyle(fontWeight: FontWeight.bold)),
       ),
       DataColumn(
-        label: Text('Count'),
+        label: Text('Count', style: TextStyle(fontWeight: FontWeight.bold)),
       ),
     ], rows: rows);
   }
@@ -121,10 +121,10 @@ class _SummaryPageState extends State<SummaryPage> {
 
     return DataTable(columns: const [
       DataColumn(
-        label: Text('SOA Connection'),
+        label: Text('Companies', style: TextStyle(fontWeight: FontWeight.bold)),
       ),
       DataColumn(
-        label: Text('Count'),
+        label: Text('Count', style: TextStyle(fontWeight: FontWeight.bold)),
       ),
     ], rows: rows);
   }
@@ -140,10 +140,11 @@ class _SummaryPageState extends State<SummaryPage> {
 
     return DataTable(columns: const [
       DataColumn(
-        label: Text('SOA Connection'),
+        label: Text('SOA Connection',
+            style: TextStyle(fontWeight: FontWeight.bold)),
       ),
       DataColumn(
-        label: Text('Count'),
+        label: Text('Count', style: TextStyle(fontWeight: FontWeight.bold)),
       ),
     ], rows: rows);
   }
@@ -274,13 +275,19 @@ class _SummaryPageState extends State<SummaryPage> {
                                 ),
                                 DataTable(columns: [
                                   DataColumn(
-                                    label: Text('UNIQUE NAMES'),
+                                    label: Text('Unique names',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
                                   ),
                                   DataColumn(
-                                    label: Text('UNIQUE COMPANIES'),
+                                    label: Text('Unique companies',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
                                   ),
                                   DataColumn(
-                                    label: Text('UNIQUE POSITIONS'),
+                                    label: Text('Unique positions',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
                                   )
                                 ], rows: [
                                   DataRow(cells: [

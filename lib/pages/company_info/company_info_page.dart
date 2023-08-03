@@ -38,6 +38,7 @@ class _CompanyInfoPageState extends State<CompanyInfoPage> {
   String password = '';
   // BardService bardService = BardService();
   AskService askService = AskService();
+  bool loading = true;
 
   Future<void> connections(String company) async {
     await searchConnection(company).then((value) {
@@ -46,6 +47,7 @@ class _CompanyInfoPageState extends State<CompanyInfoPage> {
     });
     setState(() {
       rows();
+      loading = false;
     });
   }
 
@@ -113,6 +115,9 @@ class _CompanyInfoPageState extends State<CompanyInfoPage> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     email = prefs.getString('email')!;
     password = prefs.getString('password')!;
+    setState(() {
+      loading = false;
+    });
   }
 
   void newSearch() async {
@@ -121,6 +126,7 @@ class _CompanyInfoPageState extends State<CompanyInfoPage> {
     String? conc = response?.response;
     askResult = response!.response;
     search = extractSingleValue(conc!, 'Name');
+    print(search);
     print('SEARCH');
     print(search);
     alertConnectionFound(search);
@@ -212,6 +218,13 @@ class _CompanyInfoPageState extends State<CompanyInfoPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (loading == true) {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -242,6 +255,9 @@ class _CompanyInfoPageState extends State<CompanyInfoPage> {
                     width: 100,
                     child: ElevatedButton(
                         onPressed: () {
+                          setState(() {
+                            loading = true;
+                          });
                           newSearch();
                         },
                         child: Text('Search')),
@@ -269,23 +285,22 @@ class _CompanyInfoPageState extends State<CompanyInfoPage> {
                                       Text('Name',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
-                                      SelectableText(
-                                          '${extractSingleValue(askResult, 'Name')}\n'),
+                                      SelectableText(askResult.contains('Name')
+                                          ? '${extractSingleValue(askResult, 'Name')}\n'
+                                          : 'No name found\n'),
                                       Text('LinkedIn',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
-                                      SelectableText(
-                                          '${extractSingleValue(askResult, 'Link')}\n'),
+                                      SelectableText(askResult.contains('Link')
+                                          ? '${extractSingleValue(askResult, 'Link')}\n'
+                                          : 'No linkedin link found\n'),
                                       Text('Description',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
-                                      SelectableText(
-                                        askResult.contains("Link: ")
-                                            ? addline(
-                                                '${extractResumeWithLinkedin(askResult, 'Resume', 'Link')}\n')
-                                            : addline(
-                                                '${extractResumeWithoutLinkedin(askResult, 'Resume')}\n'),
-                                      )
+                                      SelectableText(askResult
+                                              .contains('Resume')
+                                          ? '${extractSingleValue(askResult, 'Resume')}\n'
+                                          : 'No description found\n'),
                                     ],
                                   ),
                                 ))),
@@ -305,13 +320,34 @@ class _CompanyInfoPageState extends State<CompanyInfoPage> {
                               scrollDirection: Axis.horizontal,
                               controller: scrollController,
                               child: DataTable(columns: [
-                                DataColumn(label: Text('First Name')),
-                                DataColumn(label: Text('Last Name')),
-                                DataColumn(label: Text('Email Address')),
-                                DataColumn(label: Text('Company')),
-                                DataColumn(label: Text('Position')),
-                                DataColumn(label: Text('Connection')),
-                                DataColumn(label: Text('Link to LinkedIn'))
+                                DataColumn(
+                                    label: Text('First Name',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold))),
+                                DataColumn(
+                                    label: Text('Last Name',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold))),
+                                DataColumn(
+                                    label: Text('Email Address',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold))),
+                                DataColumn(
+                                    label: Text('Company',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold))),
+                                DataColumn(
+                                    label: Text('Position',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold))),
+                                DataColumn(
+                                    label: Text('Connection',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold))),
+                                DataColumn(
+                                    label: Text('Link to LinkedIn',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)))
                               ], rows: rows()))),
                       SizedBox(
                         height: 20,
@@ -352,6 +388,9 @@ class _CompanyInfoPageState extends State<CompanyInfoPage> {
                           html.Url.revokeObjectUrl(url);
                         },
                         child: Text('Export to CSV'),
+                      ),
+                      SizedBox(
+                        height: 20,
                       ),
                     ],
                   )

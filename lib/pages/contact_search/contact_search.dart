@@ -23,6 +23,8 @@ class _ImportContactSearchPageState extends State<ImportContactSearchPage> {
   String fileName = "No file chosen";
   String fileContent = "";
   String conecction = "";
+  bool loading = true;
+
   LinkedService linkedService = LinkedService();
 
   void getCredentials() async {
@@ -59,17 +61,27 @@ class _ImportContactSearchPageState extends State<ImportContactSearchPage> {
   void initState() {
     super.initState();
     getCredentials();
+    loading = false;
   }
 
   @override
   Widget build(BuildContext context) {
+    if (loading == true) {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             NavBar(),
             Container(
-              margin: EdgeInsets.only(bottom: 35, top: 35),
+              margin:
+                  EdgeInsets.only(bottom: 35, top: 35, left: 100, right: 100),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

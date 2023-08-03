@@ -19,6 +19,7 @@ class SavedSearchPage extends StatefulWidget {
 }
 
 class _SavedSearchPageState extends State<SavedSearchPage> {
+  bool loading = true;
   List<Search> searches = [];
   SearchService search = SearchService();
 
@@ -26,6 +27,7 @@ class _SavedSearchPageState extends State<SavedSearchPage> {
     searches = await search.getAllSearches();
     setState(() {
       rows();
+      loading = false;
     });
   }
 
@@ -89,6 +91,13 @@ class _SavedSearchPageState extends State<SavedSearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (loading == true) {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

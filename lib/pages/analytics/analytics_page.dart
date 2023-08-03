@@ -64,18 +64,31 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
 
   List<DataColumn> columnsCompany() {
     return [
-      DataColumn(label: Text('Position')),
-      DataColumn(label: Text('Count'))
+      DataColumn(
+          label:
+              Text('Position', style: TextStyle(fontWeight: FontWeight.bold))),
+      DataColumn(
+          label: Text('Count', style: TextStyle(fontWeight: FontWeight.bold)))
     ];
   }
 
   List<DataColumn> columnsConnections() {
     return [
-      DataColumn(label: Text('Firstname')),
-      DataColumn(label: Text('Lastname')),
-      DataColumn(label: Text('Email Addres')),
-      DataColumn(label: Text('Company')),
-      DataColumn(label: Text('Position'))
+      DataColumn(
+          label:
+              Text('Firstname', style: TextStyle(fontWeight: FontWeight.bold))),
+      DataColumn(
+          label:
+              Text('Lastname', style: TextStyle(fontWeight: FontWeight.bold))),
+      DataColumn(
+          label: Text('Email Addres',
+              style: TextStyle(fontWeight: FontWeight.bold))),
+      DataColumn(
+          label:
+              Text('Company', style: TextStyle(fontWeight: FontWeight.bold))),
+      DataColumn(
+          label:
+              Text('Position', style: TextStyle(fontWeight: FontWeight.bold)))
     ];
   }
 

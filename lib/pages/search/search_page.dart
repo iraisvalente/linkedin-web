@@ -35,6 +35,7 @@ class _SearchPageState extends State<SearchPage> {
   List<List<dynamic>> head = [];
   bool valuefirst = false;
   late Future conn;
+  bool loading = true;
   List<bool> disable = [true, true, true, true, true, true];
 
   SearchService search = SearchService();
@@ -46,6 +47,7 @@ class _SearchPageState extends State<SearchPage> {
     });
     setState(() {
       _searchTable = SearchTable(listData!);
+      loading = false;
     });
   }
 
@@ -56,6 +58,7 @@ class _SearchPageState extends State<SearchPage> {
     });
     setState(() {
       _searchTable = SearchTable(listData!);
+      loading = false;
     });
   }
 
@@ -73,6 +76,7 @@ class _SearchPageState extends State<SearchPage> {
     });
     setState(() {
       _searchTable = SearchTable(listData!);
+      loading = false;
     });
   }
 
@@ -174,6 +178,13 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (loading == true) {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
@@ -397,12 +408,24 @@ class _SearchPageState extends State<SearchPage> {
                     PaginatedDataTable(
                       source: _searchTable,
                       columns: [
-                        DataColumn(label: Text('First Name')),
-                        DataColumn(label: Text('Last Name')),
-                        DataColumn(label: Text('Email Address')),
-                        DataColumn(label: Text('Company')),
-                        DataColumn(label: Text('Position')),
-                        DataColumn(label: Text('Connection')),
+                        DataColumn(
+                            label: Text('First Name',
+                                style: TextStyle(fontWeight: FontWeight.bold))),
+                        DataColumn(
+                            label: Text('Last Name',
+                                style: TextStyle(fontWeight: FontWeight.bold))),
+                        DataColumn(
+                            label: Text('Email Address',
+                                style: TextStyle(fontWeight: FontWeight.bold))),
+                        DataColumn(
+                            label: Text('Company',
+                                style: TextStyle(fontWeight: FontWeight.bold))),
+                        DataColumn(
+                            label: Text('Position',
+                                style: TextStyle(fontWeight: FontWeight.bold))),
+                        DataColumn(
+                            label: Text('Connection',
+                                style: TextStyle(fontWeight: FontWeight.bold))),
                       ],
                       columnSpacing: 100,
                       horizontalMargin: 10,
