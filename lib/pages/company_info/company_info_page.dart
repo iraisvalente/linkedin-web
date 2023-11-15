@@ -122,7 +122,7 @@ class _CompanyInfoPageState extends State<CompanyInfoPage> {
 
   void newSearch() async {
     Response? response =
-        await askService.ask(Ask(company.text, position.text, email, password));
+    await askService.ask(Ask(company.text, position.text, email, password));
     String? conc = response?.response;
     askResult = response!.response;
     search = extractSingleValue(conc!, 'Name');
